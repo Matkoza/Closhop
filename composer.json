@@ -1,0 +1,14 @@
+{
+    "name": "user/clothing-shop",
+    "license": "apache2",
+    "authors": [
+        {
+            "name": "matej",
+            "email": "matej.mujezinovic@gmail.com"
+        }
+    ],
+    "require": {
+        "mikecao/flight": "^1.3",
+        "zircote/swagger-php": "^3.1"
+    }
+}
