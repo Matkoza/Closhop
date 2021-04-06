@@ -1,5 +1,4 @@
-<!-- HTML for static distribution bundle build -->
-<!DOCTYPE html>
+<!-- HTML for static distribution bundle build --> E html>
 <html lang="en">
 
 <head>
