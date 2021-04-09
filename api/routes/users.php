@@ -4,14 +4,14 @@
 /**
  * @OA\Info(title="Clothing Shop", version="1.0")
  * @OA\OpenApi(
- *    @OA\Server(url="http://localhost/clothing-shop/api/", description="Development Environment" )
+ *    @OA\Server(url="http://localhost/clothing-shop/api/", description="Development Environment" ),
  *    @OA\Server(url="http://example/api/", description="Production Environment" )
  * ),
  * @OA\SecurityScheme(securityScheme="ApiKeyAuth", type="apiKey", in="header", name="Authentication" )
  */
 
 /**
- * @OA\Get(path="admin/users", tags={"admin"}, security={{"ApiKeyAuth": {}}},
+ * @OA\Get(path="/admin/users", tags={"admin"}, security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(type="integer", in="query", name="offset", default=0, description="Offset for pagination"),
  *     @OA\Parameter(type="integer", in="query", name="limit", default=25, description="Limit for pagination"),
  *     @OA\Parameter(type="string", in="query", name="search", description="Search string for users. Case insensitive search."),
@@ -29,7 +29,7 @@ Flight::route('GET /admin/users', function(){
 });
 
 /**
- * @OA\Get(path="admin/users/{id}", tags={"admin"}, security={{"ApiKeyAuth": {}}},
+ * @OA\Get(path="/admin/users/{id}", tags={"admin"}, security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(@OA\Schema(type="integer"), in="path", name="id", default=1, description="Id of user"),
  *     @OA\Response(response="200", description="Fetch individual user")
  * )
@@ -39,7 +39,7 @@ Flight::route('GET admin/users/@id', function($id){
 });
 
 /**
- * @OA\Put(path="/users/{id}", tags={"admin"}, security={{"ApiKeyAuth": {}}},
+ * @OA\Put(path="/admin/users/{id}", tags={"admin"}, security={{"ApiKeyAuth": {}}},
  *   @OA\Parameter(@OA\Schema(type="integer"), in="path", name="id", default=1),
  *   @OA\RequestBody(description="Basic user info that is going to be updated", required=true,
  *       @OA\MediaType(mediaType="application/json",
@@ -60,7 +60,7 @@ Flight::route('PUT admin/users/@id', function($id){
 });
 
 /**
- * @OA\Put(path="/user/info", tags={"x-user","user"}, security={{"ApiKeyAuth": {}}},
+ * @OA\Put(path="/user/info", tags={"user"}, security={{"ApiKeyAuth": {}}},
  *   @OA\Parameter(@OA\Schema(type="integer"), in="path", name="id", default=1),
  *   @OA\RequestBody(description="Basic user info that is going to be updated", required=true,
  *       @OA\MediaType(mediaType="application/json",
@@ -90,7 +90,7 @@ Flight::route('GET /user/info', function(){
 });
 
 /**
- * @OA\Post(path="/users/register", tags={"user"},
+ * @OA\Post(path="/register", tags={"login"},
  *   @OA\RequestBody(description="Basic user info", required=true,
  *       @OA\MediaType(mediaType="application/json",
  *    			@OA\Schema(
@@ -117,11 +117,11 @@ Flight::route('POST /register', function(){
 * )
 */
 Flight::route('GET /confirm/@token', function($token){
- Flight::json(Flight::jwt(Flight::UserService()->confirm($token)));
+ Flight::json(Flight::jwt(Flight::userService()->confirm($token)));
 });
 
 /**
- * @OA\Post(path="/login", tags={"user"},
+ * @OA\Post(path="/login", tags={"login"},
  *   @OA\RequestBody(description="Basic user info", required=true,
  *       @OA\MediaType(mediaType="application/json",
  *    			@OA\Schema(
@@ -134,7 +134,7 @@ Flight::route('GET /confirm/@token', function($token){
  * )
  */
 Flight::route('POST /login', function(){
-  Flight::json(Flight::jwt(Flight::UserService()->login(Flight::request()->data->getData())));
+  Flight::json(Flight::jwt(Flight::userService()->login(Flight::request()->data->getData())));
 });
 
 
@@ -157,7 +157,7 @@ Flight::route('POST /forgot', function(){
 });
 
 /**
- * @OA\Post(path="/users/reset", tags={"user"}, description="Reset user's password using recovery token",
+ * @OA\Post(path="/users/reset", tags={"login"}, description="Reset user's password using recovery token",
  *   @OA\RequestBody(description="Basic user info", required=true,
  *       @OA\MediaType(mediaType="application/json",
  *    			@OA\Schema(

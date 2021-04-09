@@ -8,7 +8,7 @@ class Config {
       return Config::get_env("DB_USERNAME", "root");
     }
     public static function DB_PASSWORD(){
-      return Config::get_env("DB_PASSWORD", "");
+      return Config::get_env("DB_PASSWORD", "rootroot");
     }
     public static function DB_SCHEME(){
       return Config::get_env("DB_SCHEME", "clothing-website");
@@ -21,7 +21,7 @@ class Config {
   const SMTP_PORT = 587;
   const SMTP_ENCRYPT = "tls";
   const SMTP_USER = "matej.mujezinovic@gmail.com";
-  const SMTP_PASSWORD = "";
+  const SMTP_PASSWORD = "margo4444";
 
   const DATE_FORMAT= "Y-m-d H:i:s";
 
