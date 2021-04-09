@@ -9,7 +9,7 @@ class UserService extends BaseService{
   private $smtpClient;
 
   public function __construct(){
-    $this->dao = new UserDao();
+    $this->dao = new UsersDao();
     $this->smtpClient = new SMTPClient();
   }
 
@@ -30,13 +30,17 @@ class UserService extends BaseService{
         "name" => $user['name'],
         "email" => $user['email'],
         "password" => md5($user['password']),
+        "role" => "USER",
+        "status" => "PENDING",
+        "token" => md5(random_bytes(16)),
+        "created_at" => date(Config::DATE_FORMAT)
       ]);
 
       $this->dao->commit();
 
     } catch (\Exception $e) {
       $this->dao->rollBack();
-      if (str_contains($e->getMessage(), 'users.uq_user_email')) {
+      if (str_contains($e->getMessage(), 'users.uk_user_email')) {
         throw new Exception("Account with same email exists in the database", 400, $e);
       }else{
         throw $e;

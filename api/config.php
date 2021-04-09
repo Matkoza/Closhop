@@ -5,6 +5,7 @@ class Config {
   const DB_USERNAME = "root";
   const DB_PASSWORD = "rootroot";
   const DB_SCHEME = "clothing-website";
+  const DATE_FORMAT= "Y-m-d H:i:s";
 
   const SMTP_HOST = "smtp.gmail.com";
   const SMTP_PORT = 587;
