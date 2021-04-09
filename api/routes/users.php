@@ -5,6 +5,7 @@
  * @OA\Info(title="Clothing Shop", version="1.0")
  * @OA\OpenApi(
  *    @OA\Server(url="http://localhost/clothing-shop/api/", description="Development Environment" )
+ *    @OA\Server(url="http://example/api/", description="Production Environment" )
  * ),
  * @OA\SecurityScheme(securityScheme="ApiKeyAuth", type="apiKey", in="header", name="Authentication" )
  */
@@ -59,6 +60,27 @@ Flight::route('PUT admin/users/@id', function($id){
 });
 
 /**
+ * @OA\Put(path="/user/info", tags={"x-user","user"}, security={{"ApiKeyAuth": {}}},
+ *   @OA\Parameter(@OA\Schema(type="integer"), in="path", name="id", default=1),
+ *   @OA\RequestBody(description="Basic user info that is going to be updated", required=true,
+ *       @OA\MediaType(mediaType="application/json",
+ *    			@OA\Schema(
+ *    				 @OA\Property(property="name", required="true", type="string", example="My Test Account",	description="Name of the user" ),
+ *    				 @OA\Property(property="username", required="true", type="string", example="testaccount",	description="Username of the user" ),
+ *    				 @OA\Property(property="email", required="true", type="string", example="test@account.com",	description="Email of the user" ),
+ *    				 @OA\Property(property="password", required="true", type="string", example="testaccount123",	description="Password of the user" )
+ *          )
+ *       )
+ *     ),
+ *     @OA\Response(response="200", description="Update user based on id")
+ * )
+ */
+ Flight::route('PUT /user/info', function(){
+  $data = Flight::request()->data->getData();
+  Flight::json(Flight::userService()->update(Flight::get("user")["id"],$data));
+});
+
+/**
  * @OA\Get(path="/user/info", tags={"user"}, security={{"ApiKeyAuth": {}}},
  *     @OA\Response(response="200", description="Fetch user account info")
  * )
@@ -85,6 +107,7 @@ Flight::route('GET /user/info', function(){
 Flight::route('POST /register', function(){
  $data = Flight::request()->data->getData();
  Flight::json(Flight::userService()->register($data));
+ Flight::json(["message"=>"Confirmation email sent"]);
 });
 
 /**
@@ -94,8 +117,7 @@ Flight::route('POST /register', function(){
 * )
 */
 Flight::route('GET /confirm/@token', function($token){
- Flight::userService()->confirm($token);
- Flight::json(["message" => "Your account has been activated"]);
+ Flight::json(Flight::jwt(Flight::UserService()->confirm($token)));
 });
 
 /**
