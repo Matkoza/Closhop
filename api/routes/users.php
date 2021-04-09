@@ -134,8 +134,7 @@ Flight::route('GET /confirm/@token', function($token){
  * )
  */
 Flight::route('POST /login', function(){
-  $data = Flight::request()->data->getData();
-  Flight::json(Flight::userService()->login($data));
+  Flight::json(Flight::jwt(Flight::UserService()->login(Flight::request()->data->getData())));
 });
 
 
