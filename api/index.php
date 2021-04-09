@@ -2,7 +2,6 @@
 
 require_once dirname(__FILE__).'/../vendor/autoload.php';
 require_once dirname(__FILE__).'/services/UserService.class.php';
-require_once dirname(__FILE__).'/routes/users.php';
 
 Flight::set('flight.log_errors', TRUE);
 
@@ -17,6 +16,17 @@ Flight::map('query', function($name, $default_value = NULL){
   $query_param = @$request->query->getData()[$name];
   $query_param = $query_param ? $query_param : $default_value;
   return $query_param;
+});
+/* utility function for getting header parameters */
+Flight::map('header', function($name){
+  $headers = getallheaders();
+  return @$headers[$name];
+});
+
+/* utility function for generating JWT token */
+Flight::map('jwt', function($user){
+  $jwt = \Firebase\JWT\JWT::encode(["exp" => (time() + Config::JWT_TOKEN_TIME), "id" => $user["id"], "r" => $user["role"]], Config::JWT_SECRET);
+  return ["token" => $jwt];
 });
 
 /* swagger documentation */
@@ -34,6 +44,7 @@ Flight::route('GET /', function(){
 Flight::register('userService', 'UserService');
 
 /* include all routes */
+require_once dirname(__FILE__)."/routes/middleware.php";
 require_once dirname(__FILE__)."/routes/users.php";
 
 Flight::start();
