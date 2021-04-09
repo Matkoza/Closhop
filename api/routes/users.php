@@ -5,7 +5,7 @@
  * @OA\Info(title="Clothing Shop", version="1.0")
  * @OA\OpenApi(
  *    @OA\Server(url="http://localhost/clothing-shop/api/", description="Development Environment" ),
- *    @OA\Server(url="http://example/api/", description="Production Environment" )
+ *    @OA\Server(url="http://clothing-shop.matkoza.me/api/", description="Production Environment" )
  * ),
  * @OA\SecurityScheme(securityScheme="ApiKeyAuth", type="apiKey", in="header", name="Authentication" )
  */
