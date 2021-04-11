@@ -21,7 +21,7 @@ class Config {
   const SMTP_PORT = 587;
   const SMTP_ENCRYPT = "tls";
   const SMTP_USER = "matej.mujezinovic@gmail.com";
-  const SMTP_PASSWORD = "margo4444";
+  const SMTP_PASSWORD = "";
 
   const DATE_FORMAT= "Y-m-d H:i:s";
 
