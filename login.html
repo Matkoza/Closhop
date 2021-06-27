@@ -28,7 +28,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body style="display:none;">
+    <body>
 
         <div class="container">
             <div class="row">
@@ -63,28 +63,31 @@
         <script src="./assets/js/bootstrap.min.js"></script>
 
         <script type="text/javascript">
-        $(function(){
+        /* $(function(){
           if (window.localStorage.getItem("token")){
             window.location="index.html";
           }else{
             $('body').show();
           }
-        });
-        
+        }); */
+
           function doLogin(){
 
             var login_info = {
               "email" : $("#email").val(),
               "password" : $("#password").val()
             };
+            console.log(login_info);
+
             $("#login-link").prop('disabled',true);
             $.post( "http://localhost/clothing-shop/api/login", login_info).done(function( data ) {
-              window.localStorage.setItem("token", data.token);
-              window.location = "index.html";
+              /* window.localStorage.setItem("token", data.token);
+              window.location = "index.html"; */
             }).fail(function(error) {
               $("#login-link").prop('disabled',false);
               alert( error.responseJSON.message );
             });
+
 
           }
         </script>
