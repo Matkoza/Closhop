@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+a<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -38,7 +38,7 @@
                             <h3 class="panel-title">Please Sign In</h3>
                         </div>
                         <div class="panel-body">
-                            <form role="form">
+                            <form id="login-form" role="form">
                                 <fieldset>
                                     <div class="form-group">
                                         <input  id="email" class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
@@ -74,19 +74,19 @@
                         <h3 class="panel-title">Register Form</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+                        <form id="register-form" role="form">
                             <fieldset>
                                 <div class="form-group">
-                                    <input  id="register-name" class="form-control" placeholder="Name" name="email" type="text" autofocus>
+                                    <input  class="form-control" placeholder="Name" name="name" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input  id="register-username" class="form-control" placeholder="Username" name="username" type="text" autofocus>
+                                    <input  class="form-control" placeholder="Username" name="username" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input  id="register-email" class="form-control" placeholder="E-mail" name="email" type="text" autofocus>
+                                    <input  class="form-control" placeholder="E-mail" name="email" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input id="register-password" class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input  class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
                                 <div class="form-group">
                                 <button id="register-link" onclick="doRegister();" class="btn btn-lg btn-success btn-block">Register</button>
@@ -108,7 +108,7 @@
                     <h3 class="panel-title">Forgot Password</h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form">
+                    <form id ="forgot-form" role="form">
                         <fieldset>
                             <div class="form-group">
                                 <input  id="forgot-email" class="form-control" placeholder="E-mail" name="email" type="text" autofocus>
@@ -133,29 +133,29 @@
                     <h3 class="panel-title">Change Password</h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form">
+                    <form id="change-form" role="form">
                         <fieldset>
-                          <input id="change-password-token" name="token" type="hidden">
-
+                          <input name="token" type="hidden">
                           <div class="form-group">
-                              <input id="change-password" class="form-control" placeholder="Password" name="password" type="password" value="">
+                              <input class="form-control" placeholder="Password" name="password" type="password" value="">
                           </div>
-                            <div class="form-group">
-                            <button id="change-link" onclick="doChangePassword()" class="btn btn-lg btn-success btn-block">Change Password</button>
+                          <div class="form-group">
+                          <button id="change-link" onclick="doChangePassword()" class="btn btn-lg btn-success btn-block">Change Password</button>
                           </div>
                         </fieldset>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
         </div>
+    </div>
 
         <!-- jQuery -->
         <script src="./assets/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JavaScript -->
         <script src="./assets/js/bootstrap.min.js"></script>
+        <script src="./assets/js/utils.js"></script>
 
         <script type="text/javascript">
           $(function(){
@@ -195,15 +195,8 @@
           }
 
           function doRegister(){
-            var register_info = {
-              "name" : $("#register-name").val(),
-              "username" : $("#register-username").val(),
-              "email" : $("#register-email").val(),
-              "password" : $("#register-password").val()
-            };
-
             $("#register-link").prop('disabled',true);
-            $.post( "http://localhost/clothing-shop/api/register", register_info).done(function( data ) {
+            $.post( "api/register", jsonize_form('#register-form')).done(function( data ) {
               console.log(data);
               $("#register-form-container").addClass("hidden");
               $("#form-alert").removeClass("hidden")
@@ -215,31 +208,19 @@
           }
 
           function doLogin(){
-
-            var login_info = {
-              "email" : $("#email").val(),
-              "password" : $("#password").val()
-            };
-            console.log(login_info);
             $("#login-link").prop('disabled',true);
-            $.post( "http://localhost/clothing-shop/api/login", login_info).done(function( data ) {
+            $.post( "api/login", jsonize_form('#login-form')).done(function( data ) {
               window.localStorage.setItem("token", data.token);
               window.location = "index.html";
             }).fail(function(error) {
               $("#login-link").prop('disabled',false);
               alert( error.responseJSON.message );
             });
-
-
           }
 
           function doForgotPassword(){
-            var forgot_info = {
-              "email" : $("#forgot-email").val(),
-
-            };
             $("#forgot-link").prop('disabled',true);
-            $.post( "http://localhost/clothing-shop/api/forgot", forgot_info).done(function( data ) {
+            $.post( "api/forgot", jsonize_form('#forgot-form')).done(function( data ) {
               console.log(data);
               alert("forgot in action");
               $("#register-form-container").addClass("hidden");
@@ -251,17 +232,11 @@
               $("#form-alert").removeClass("hidden")
               $("#form-alert .alert").html(error.responseJSON.message);
             });
-
           }
 
           function doChangePassword(){
-            var change_info = {
-              "token" : $("#change-password-token").val(),
-              "password" : $("#change-password").val(),
-
-            };
             $("#change-link").prop('disabled',true);
-            $.post( "http://localhost/clothing-shop/api/reset", change_info).done(function( data ) {
+            $.post( "api/reset", jsonize_form('#change-form')).done(function( data ) {
               window.localStorage.setItem("token", data.token);
               window.location = "index.html";
             }).fail(function(error) {
