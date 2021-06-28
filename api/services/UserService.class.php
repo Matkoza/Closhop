@@ -4,6 +4,8 @@ require_once dirname(__FILE__). '/BaseService.class.php';
 require_once dirname(__FILE__).'/../dao/UsersDao.class.php';
 require_once dirname(__FILE__).'/../clients/SMTPClient.class.php';
 
+require_once dirname(__FILE__).'/../clients/SMTPClient.class.php';
+
 class UserService extends BaseService{
 
   private $smtpClient;
@@ -40,14 +42,14 @@ class UserService extends BaseService{
 
     } catch (\Exception $e) {
       $this->dao->rollBack();
-      if (str_contains($e->getMessage(), 'users.uk_user_email')) {
+      if (str_contains($e->getMessage(), 'users.uq_user_email')) {
         throw new Exception("Account with same email exists in the database", 400, $e);
       }else{
         throw $e;
       }
     }
 
-    $this->smtpClient->send_register_user_token($user);
+  //  $this->smtpClient->send_register_user_token($user);
 
     return $user;
   }

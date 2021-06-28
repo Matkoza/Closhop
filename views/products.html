@@ -58,7 +58,6 @@
          beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
          success: function(data) {
            console.log(data);
-           alert("Success!" + authHeader);
            var html = "";
            for(var i = 0; i < data.length; i++){
              html += '<tr class="odd">'

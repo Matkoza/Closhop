@@ -20,7 +20,6 @@ class ProductService extends BaseService{
         "type" => $product['type'],
         "price" => $product['price'],
         "stock" => $product['stock'],
-        "description" => $product['description'],
         "color" => $product['color'],
         "sex" => $product['sex'],
       ];
