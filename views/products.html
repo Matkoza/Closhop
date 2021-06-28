@@ -11,7 +11,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Product List
+                        Products
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -47,7 +47,6 @@
 <!-- /#page-wrapper -->
 
 <script type="text/javascript">
-
   getProducts();
 
   function getProducts(){
@@ -67,7 +66,6 @@
                  +'<td>'+data[i].price+'</td>'
                  +'<td>'+data[i].stock+'</td>'
                  +'<td>'+data[i].color+'</td>';
-
            }
 
            $("#products-table tbody").html(html);
@@ -75,4 +73,5 @@
          }
       });
   }
+
 </script>

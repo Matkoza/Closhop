@@ -50,25 +50,11 @@ Flight::route('GET /admin/products/@id', function($id){
 });
 
 /**
- * @OA\Put(path="/admin/products/{id}", tags={"products"}, security={{"ApiKeyAuth": {}}},
- *   @OA\Parameter(@OA\Schema(type="integer"), in="path", name="id", default=1),
- *   @OA\RequestBody(description="Basic product info that is going to be updated", required=true,
- *       @OA\MediaType(mediaType="application/json",
- *    			@OA\Schema(
- *    				 @OA\Property(property="name", required="true", type="string", example="Regular Fit",	description="Title of the product" ),
- *    				 @OA\Property(property="type", required="true", type="string", example="Jeans",	description="Type of clothing" ),
- *    				 @OA\Property(property="price", required="true", type="string", example="23$",	description="Price of the product" ),
- *    				 @OA\Property(property="stock", required="true", type="string", example="3",	description="Stock" ),
- *             @OA\Property(property="color", required="true", type="string", example="3",	description="Stock" ),
- *             @OA\Property(property="sex", required="true", type="string", example="3",	description="Stock" )
- *          )
- *       )
- *     ),
- *     @OA\Response(response="200", description="Update product based on id")
+ * @OA\Get(path="/admin/products/", tags={"products"}, security={{"ApiKeyAuth": {}}},
+ *     @OA\Response(response="200", description="Fetch based on gender")
  * )
  */
-Flight::route('PUT /admin/products/@id', function($id){
-   Flight::json(Flight::productService()->update_email_template(Flight::get('user'), intval($id), Flight::request()->data->getData()));
+ Flight::route('GET /admin/maleproducts', function(){
+  Flight::json(Flight::productService()->get_male_products());
 });
-
 ?>
