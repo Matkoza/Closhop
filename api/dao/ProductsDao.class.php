@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__FILE__)."/BaseDao.class.php";
 
-class ProdudctDao extends BaseDao{
+class ProductsDao extends BaseDao{
 
   public function __construct(){
     parent::__construct("products");
@@ -15,7 +15,7 @@ class ProdudctDao extends BaseDao{
     }else{
       $query = "SELECT * ";
     }
-    $query .= "FROM email_templates
+    $query .= "FROM products
                WHERE 1 = 1 ";
     if (isset($search)){
     $query .= "AND ( LOWER(name) LIKE CONCAT('%', :search, '%'))";
