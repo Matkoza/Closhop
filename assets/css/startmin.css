@@ -9,6 +9,36 @@
 body {
     background-color: #f8f8f8;
 }
+.container {
+	width: 80%;
+	margin: 0 auto;
+}
+header {
+  background: #55d6aa;
+}
+header::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+nav {
+  float: left;
+}
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+nav li {
+  display: inline-block;
+  position: relative;
+}
+nav a {
+  color: #444;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 14px;
+}
 
 #wrapper {
     width: 100%;
