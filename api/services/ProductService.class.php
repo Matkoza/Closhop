@@ -1,7 +1,7 @@
 <?php
 
 require_once dirname(__FILE__). '/BaseService.class.php';
-require_once dirname(__FILE__).'/../dao/productDao.class.php';
+require_once dirname(__FILE__).'/../dao/productsDao.class.php';
 
 class ProductService extends BaseService{
 
@@ -9,15 +9,12 @@ class ProductService extends BaseService{
     $this->dao = new ProductsDao();
   }
 
-  public function get_products($search, $offset, $limit, $order){
-    if ($search){
-      return $this->dao->get_products($search, $offset, $limit, $order);
-    }else{
-      return $this->dao->get_all($offset, $limit, $order);
-    }
+  public function get_products($search, $offset, $limit, $order, $total=FALSE){
+    return $this->dao->get_products($search, $offset, $limit, $order, $total);
   }
 
   public function add_product($product){
+    try{
       $product = [
         "name" => $product['name'],
         "type" => $product['type'],
@@ -28,6 +25,13 @@ class ProductService extends BaseService{
         "sex" => $product['sex'],
       ];
       return parent::add($product);
+    } catch (\Exception $e) {
+      if (str_contains($e->getMessage(), 'products.uq_products_name')) {
+        throw new Exception("Product already exists", 400, $e);
+      }else{
+        throw new Exception($e->getMessage(), 400, $e);
+      }
+    }
   }
 
 }

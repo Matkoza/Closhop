@@ -1,4 +1,4 @@
-a<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -200,7 +200,7 @@ a<!DOCTYPE html>
 
           function doRegister(){
             $("#register-link").prop('disabled',true);
-            $.post( "api/register", jsonize_form('#register-form')).done(function( data ) {
+            $.post( "http://localhost/clothing-shop/api/register", jsonize_form('#register-form')).done(function( data ) {
               console.log(data);
               $("#register-form-container").addClass("hidden");
               $("#form-alert").removeClass("hidden")
@@ -213,7 +213,7 @@ a<!DOCTYPE html>
 
           function doLogin(){
             $("#login-link").prop('disabled',true);
-            $.post( "api/login", jsonize_form('#login-form')).done(function( data ) {
+            $.post("http://localhost/clothing-shop/api/login", jsonize_form('#login-form')).done(function( data ) {
               window.localStorage.setItem("token", data.token);
               window.location = "index.html";
             }).fail(function(error) {
@@ -224,7 +224,7 @@ a<!DOCTYPE html>
 
           function doForgotPassword(){
             $("#forgot-link").prop('disabled',true);
-            $.post( "api/forgot", jsonize_form('#forgot-form')).done(function( data ) {
+            $.post( "http://localhost/clothing-shop/api/forgot", jsonize_form('#forgot-form')).done(function( data ) {
               console.log(data);
               alert("forgot in action");
               $("#register-form-container").addClass("hidden");
@@ -240,7 +240,7 @@ a<!DOCTYPE html>
 
           function doChangePassword(){
             $("#change-link").prop('disabled',true);
-            $.post( "api/reset", jsonize_form('#change-form')).done(function( data ) {
+            $.post( "http://localhost/clothing-shop/api/reset", jsonize_form('#change-form')).done(function( data ) {
               window.localStorage.setItem("token", data.token);
               window.location = "index.html";
             }).fail(function(error) {
