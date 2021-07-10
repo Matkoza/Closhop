@@ -32,9 +32,8 @@ class ProductsDao extends BaseDao{
         }
     }
 
-    public function get_male_products($sex, $id){
-           return $this->query_unique("SELECT * FROM products WHERE sex = :male AND id = :id", ["sex" => $sex, "id" => $id]);
-     }
-
+    public function get_product_by_sex($sex){
+    return $this->query("SELECT * FROM products WHERE sex = :sex", ["sex" => $sex]);
+  }
 }
 ?>

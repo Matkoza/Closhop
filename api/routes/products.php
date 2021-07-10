@@ -40,21 +40,13 @@ Flight::route('GET /admin/products', function(){
 });
 
 /**
- * @OA\Get(path="/admin/products/{id}", tags={"products"}, security={{"ApiKeyAuth": {}}},
- *     @OA\Parameter(@OA\Schema(type="integer"), in="path", name="id", default=1, description="Id of product"),
- *     @OA\Response(response="200", description="Fetch individual product")
+ * @OA\Get(path="/admin/products/{sex}", tags={"products"}, security={{"ApiKeyAuth": {}}},
+ *     @OA\Parameter(type="string", in="path", name="sex", default="male", description="gender of product"),
+ *     @OA\Response(response="200", description="Fetch individual sex of product")
  * )
  */
-Flight::route('GET /admin/products/@id', function($id){
-  Flight::json(Flight::productService()->get_by_id($id));
+Flight::route('GET /admin/products/@sex', function($sex){
+  Flight::json(Flight::productService()->get_product_by_sex($sex));
 });
 
-/**
- * @OA\Get(path="/admin/products/", tags={"products"}, security={{"ApiKeyAuth": {}}},
- *     @OA\Response(response="200", description="Fetch based on gender")
- * )
- */
- Flight::route('GET /admin/maleproducts', function(){
-  Flight::json(Flight::productService()->get_male_products());
-});
 ?>

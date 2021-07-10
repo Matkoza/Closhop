@@ -12,8 +12,8 @@ class ProductService extends BaseService{
   public function get_products($search, $offset, $limit, $order, $total=FALSE){
     return $this->dao->get_products($search, $offset, $limit, $order, $total);
   }
-  public function get_male_products($sex, $id){
-  return $this->dao->get_male_products($sex, $id);
+  public function get_product_by_sex($sex){
+  return $this->dao->get_product_by_sex($sex);
 }
   public function add_product($product){
     try{

@@ -11,8 +11,8 @@
           <div class="col-lg-12">
           <nav>
         <ul>
-          <li><button onClick="getProductsBySex()">Male</button></li>
-          <li><button href="#">Female</button></li>
+          <li><button onClick=getProductsBySex("male") >Male</button></li>
+          <li><button onClick=getProductsBySex("female")>Female</button></li>
         </ul>
       </nav>
       <br></br>
@@ -32,8 +32,6 @@
                                       <th>Name</th>
                                       <th>Type</th>
                                       <th>Price</th>
-                                      <th>Stock</th>
-                                      <th>Color</th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -55,10 +53,10 @@
 
 <!-- /#page-wrapper -->
 <script type="text/javascript">
-  function getProductsBySex(){
+  function getProductsBySex(sex){
 
     $.ajax({
-         url: "api/admin/maleproducts/",
+         url: "api/admin/products/"+sex,
          type: "GET",
          beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
          success: function(msg) {
@@ -69,13 +67,11 @@
                  +'<td>'+msg[i].id+'</td>'
                  +'<td>'+msg[i].name+'</td>'
                  +'<td>'+msg[i].type+'</td>'
-                 +'<td>'+msg[i].price+'</td>'
-                 +'<td>'+msg[i].stock+'</td>'
-                 +'<td>'+msg[i].color+'</td>';
+                 +'<td>'+msg[i].price+'</td>';
 
            }
 
-           $("products-type-table tbody").html(html);
+           $("#products-type-table tbody").html(html);
 
          }
       });
